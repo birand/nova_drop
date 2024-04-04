@@ -27,36 +27,36 @@
 ```bash
 gcc -o my_program main.c nova_drop.c
 ```
-Usage
+### Usage
 Initialize the PRNG State: Before generating random numbers, initialize the state with a seed.
-c
-Copy code
+```bash
 uint32_t state[NOVA_DROP_STATE_SIZE];
 uint32_t seed = 123456789; // Example seed
 nova_init(state, seed);
+```
 Generate Random Numbers: Use nova_drop to generate random numbers as needed.
-c
-Copy code
+```bash
 uint32_t random_number = nova_drop(state);
-Documentation
+```
+## Documentation
 
-Functions
+## Functions
 void nova_init(uint32_t *state, uint32_t seed): Initializes the PRNG state with a given seed.
 uint32_t nova_drop(uint32_t *state): Generates a pseudo-random number based on the current state and updates the state.
-Constants
+## Constants
 NOVA_DROP_STATE_SIZE: The size of the state array required by nova_drop. Currently set to 5.
-License
+### License
 
 nova_drop is open source and freely available for personal and commercial use.
 
-Disclaimer
+### Disclaimer
 
 While nova_drop has been designed with care, it has not undergone extensive testing in cryptographic contexts and should not be used for security-critical applications without further validation.
 
-Contributions
+### Contributions
 
 Contributions, suggestions, and bug reports are welcome and can be submitted via the project's GitHub repository.
 
-Contact
+### Contact
 
 For questions or support, please open an issue on the GitHub project page.
