@@ -16,6 +16,11 @@ typedef struct {
 void nova_init(NovaState *state, uint32_t seed);
 uint32_t nova_drop(NovaState *state);
 
+// Utility functions
+uint32_t nova_range(NovaState *state, uint32_t min, uint32_t max);
+float nova_float(NovaState *state);
+int nova_bool(NovaState *state);
+
 #ifdef __cplusplus
 }
 #endif

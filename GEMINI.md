@@ -8,6 +8,10 @@
 - **Core Components:** 
     - `nova_init`: Initializes the PRNG state using a 32-bit seed.
     - `nova_drop`: Generates a pseudo-random 32-bit integer and updates the state.
+- **Utility API:**
+    - `nova_range(state, min, max)`: Generates a 32-bit integer within the specified range (inclusive).
+    - `nova_float(state)`: Returns a floating-point value between `[0.0, 1.0)`.
+    - `nova_bool(state)`: Returns a boolean-like integer (0 or 1).
 
 ## Building and Running
 

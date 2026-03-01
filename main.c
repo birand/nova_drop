@@ -13,10 +13,14 @@ int main() {
         printf("%u\n", nova_drop(&state));
     }
 
-    // Demonstrate reproducibility with the same seed
     NovaState state2;
     nova_init(&state2, seed);
     printf("\nRe-initializing with same seed (42). First number: %u (Should match first above)\n", nova_drop(&state2));
+
+    printf("\nTesting Utility Functions:\n");
+    printf("Range [1, 10]: %u\n", nova_range(&state, 1, 10));
+    printf("Float [0, 1): %f\n", nova_float(&state));
+    printf("Boolean flip: %s\n", nova_bool(&state) ? "TRUE" : "FALSE");
 
     return 0;
 }

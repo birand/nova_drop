@@ -26,3 +26,16 @@ uint32_t nova_drop(NovaState *state) {
     return result;
 }
 
+uint32_t nova_range(NovaState *state, uint32_t min, uint32_t max) {
+    if (min >= max) return min;
+    return min + (nova_drop(state) % (max - min + 1));
+}
+
+float nova_float(NovaState *state) {
+    return (float)nova_drop(state) / (float)UINT32_MAX;
+}
+
+int nova_bool(NovaState *state) {
+    return (int)(nova_drop(state) & 1);
+}
+
