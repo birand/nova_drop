@@ -22,5 +22,10 @@ int main() {
     printf("Float [0, 1): %f\n", nova_float(&state));
     printf("Boolean flip: %s\n", nova_bool(&state) ? "TRUE" : "FALSE");
 
+    printf("\nTesting Auto-Seeding:\n");
+    NovaState state3;
+    nova_auto_seed(&state3);
+    printf("Auto-seeded random number: %u\n", nova_drop(&state3));
+
     return 0;
 }

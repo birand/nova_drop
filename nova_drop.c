@@ -1,5 +1,7 @@
 // nova_drop.c
 
+#include <stdio.h>
+#include <time.h>
 #include "nova_drop.h"
 
 void nova_init(NovaState *state, uint32_t seed) {
@@ -8,6 +10,20 @@ void nova_init(NovaState *state, uint32_t seed) {
     for (i = 1; i < NOVA_DROP_STATE_SIZE; ++i) {
         state->state[i] = 1812433253 * (state->state[i - 1] ^ (state->state[i - 1] >> 30)) + i;
     }
+}
+
+void nova_auto_seed(NovaState *state) {
+    uint32_t seed;
+    FILE *urandom = fopen("/dev/urandom", "rb");
+    if (urandom) {
+        if (fread(&seed, sizeof(uint32_t), 1, urandom) != 1) {
+            seed = (uint32_t)(time(NULL) ^ clock());
+        }
+        fclose(urandom);
+    } else {
+        seed = (uint32_t)(time(NULL) ^ clock());
+    }
+    nova_init(state, seed);
 }
 
 uint32_t nova_drop(NovaState *state) {
