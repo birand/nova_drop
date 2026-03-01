@@ -39,6 +39,13 @@ make nova_raw
 ./nova_raw | dieharder -g 200 -a
 ```
 
+### Performance Benchmarking
+A benchmark utility is provided to compare `nova_drop` with the standard library's `rand()`.
+```bash
+make bench
+```
+Typical performance results show `nova_drop` achieving ~100 MOPS (Millions of Operations Per Second), being highly competitive with `stdlib.h` implementations while providing a larger state and custom mixing logic.
+
 ### CI/CD
 The project uses **GitHub Actions** for continuous integration. Every push or pull request to the `main` branch triggers an automated build and test process to ensure code quality and stability.
 To clean up build artifacts:
@@ -62,6 +69,7 @@ make clean
 - `nova_drop.c`: Implementation of the PRNG logic.
 - `main.c`: Example program demonstrating usage and reproducibility.
 - `nova_raw.c`: Utility for streaming binary data for statistical testing.
+- `nova_bench.c`: Performance benchmarking utility.
 - `Makefile`: Build script for the project and test suite.
 - `README.md`: General overview and usage instructions.
 - `LICENSE`: Open source license terms.

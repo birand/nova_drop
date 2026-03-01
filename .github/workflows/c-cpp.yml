@@ -24,3 +24,6 @@ jobs:
 
     - name: Build raw utility
       run: make nova_raw
+
+    - name: Run benchmark
+      run: make bench
