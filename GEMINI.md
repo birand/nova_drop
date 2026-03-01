@@ -9,6 +9,9 @@
     - `nova_init`: Initializes the PRNG state using a 32-bit seed.
     - `nova_auto_seed`: Automatically initializes the state using system entropy (`/dev/urandom` or system clock).
     - `nova_drop`: Generates a pseudo-random 32-bit integer and updates the state.
+- **State Serialization:**
+    - `nova_serialize(state, buffer)`: Exports the internal state into a `uint32_t` array of size `NOVA_DROP_STATE_SIZE`.
+    - `nova_deserialize(state, buffer)`: Imports the internal state from a provided buffer.
 - **Utility API:**
     - `nova_range(state, min, max)`: Generates a 32-bit integer within the specified range (inclusive).
     - `nova_float(state)`: Returns a floating-point value between `[0.0, 1.0)`.

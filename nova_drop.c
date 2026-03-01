@@ -42,6 +42,20 @@ uint32_t nova_drop(NovaState *state) {
     return result;
 }
 
+void nova_serialize(const NovaState *state, uint32_t *buffer) {
+    uint32_t i;
+    for (i = 0; i < NOVA_DROP_STATE_SIZE; i++) {
+        buffer[i] = state->state[i];
+    }
+}
+
+void nova_deserialize(NovaState *state, const uint32_t *buffer) {
+    uint32_t i;
+    for (i = 0; i < NOVA_DROP_STATE_SIZE; i++) {
+        state->state[i] = buffer[i];
+    }
+}
+
 uint32_t nova_range(NovaState *state, uint32_t min, uint32_t max) {
     if (min >= max) return min;
     return min + (nova_drop(state) % (max - min + 1));

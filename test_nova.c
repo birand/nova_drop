@@ -97,6 +97,30 @@ void test_nova_auto_seed_uniqueness(void) {
     TEST_ASSERT_FALSE_MESSAGE(match, "Auto-seeded states should be different");
 }
 
+void test_nova_serialization_roundtrip(void) {
+    NovaState state1, state2;
+    uint32_t buffer[NOVA_DROP_STATE_SIZE];
+    uint32_t seed = 55555;
+    
+    nova_init(&state1, seed);
+    
+    // Generate some numbers
+    for (int i = 0; i < 50; i++) {
+        nova_drop(&state1);
+    }
+    
+    // Serialize state1
+    nova_serialize(&state1, buffer);
+    
+    // Deserialize into state2
+    nova_deserialize(&state2, buffer);
+    
+    // Ensure both states produce the same sequence from now on
+    for (int i = 0; i < 100; i++) {
+        TEST_ASSERT_EQUAL_UINT32(nova_drop(&state1), nova_drop(&state2));
+    }
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_nova_init_consistency);
@@ -106,5 +130,6 @@ int main(void) {
     RUN_TEST(test_nova_float_bounds);
     RUN_TEST(test_nova_bool_output);
     RUN_TEST(test_nova_auto_seed_uniqueness);
+    RUN_TEST(test_nova_serialization_roundtrip);
     return UNITY_END();
 }

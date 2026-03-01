@@ -60,6 +60,8 @@ int coin = nova_bool(&state);              // 0 or 1
 - `uint32_t nova_range(NovaState *state, uint32_t min, uint32_t max)`: Generate a number in `[min, max]`.
 - `float nova_float(NovaState *state)`: Generate a float in `[0.0, 1.0)`.
 - `int nova_bool(NovaState *state)`: Generate a 0 or 1.
+- `void nova_serialize(const NovaState *state, uint32_t *buffer)`: Export state to a buffer.
+- `void nova_deserialize(NovaState *state, const uint32_t *buffer)`: Import state from a buffer.
 
 ## Development & Testing
 
