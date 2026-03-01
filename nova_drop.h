@@ -3,6 +3,10 @@
 
 #include <stdint.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define NOVA_DROP_STATE_SIZE 5
 
 typedef struct {
@@ -11,5 +15,9 @@ typedef struct {
 
 void nova_init(NovaState *state, uint32_t seed);
 uint32_t nova_drop(NovaState *state);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // NOVA_DROP_H
