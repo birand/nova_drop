@@ -38,6 +38,9 @@ make nova_raw
 # Example using 'dieharder'
 ./nova_raw | dieharder -g 200 -a
 ```
+
+### CI/CD
+The project uses **GitHub Actions** for continuous integration. Every push or pull request to the `main` branch triggers an automated build and test process to ensure code quality and stability.
 To clean up build artifacts:
 ```bash
 make clean
