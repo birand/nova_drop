@@ -1,2 +1,5 @@
 *.o
 test_nova
+nova_raw
+nova_bench
+unit_test

@@ -22,6 +22,9 @@ jobs:
     - name: Run tests
       run: make test
 
+    - name: Run unit tests
+      run: make unit-test
+
     - name: Build raw utility
       run: make nova_raw
 

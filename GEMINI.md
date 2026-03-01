@@ -28,6 +28,19 @@ A basic test and demonstration program is provided in `main.c`. To compile and r
 make test
 ```
 
+### Unit Testing
+A comprehensive unit test suite using the **Unity** framework is included in `test_nova.c`.
+```bash
+make unit-test
+```
+This suite covers:
+- State initialization consistency.
+- Output reproducibility.
+- Bounded integer generation (`nova_range`).
+- Floating-point range validation (`nova_float`).
+- Boolean logic validation (`nova_bool`).
+- Auto-seeding entropy uniqueness.
+
 ### Statistical Quality Validation
 For professional randomness validation, use the `nova_raw` utility to stream raw binary data to stdout. This can be piped into test suites:
 ```bash
@@ -68,6 +81,8 @@ make clean
 - `nova_drop.h`: Public interface, constants, and `NovaState` struct.
 - `nova_drop.c`: Implementation of the PRNG logic.
 - `main.c`: Example program demonstrating usage and reproducibility.
+- `test_nova.c`: Comprehensive unit test suite using Unity.
+- `unity.c`, `unity.h`, `unity_internals.h`: Unity C Unit Testing Framework.
 - `nova_raw.c`: Utility for streaming binary data for statistical testing.
 - `nova_bench.c`: Performance benchmarking utility.
 - `Makefile`: Build script for the project and test suite.
