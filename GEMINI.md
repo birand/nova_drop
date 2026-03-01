@@ -22,6 +22,17 @@ A basic test and demonstration program is provided in `main.c`. To compile and r
 ```bash
 make test
 ```
+
+### Statistical Quality Validation
+For professional randomness validation, use the `nova_raw` utility to stream raw binary data to stdout. This can be piped into test suites:
+```bash
+# Example using 'rng-tools'
+make nova_raw
+./nova_raw | rngtest -c 1000
+
+# Example using 'dieharder'
+./nova_raw | dieharder -g 200 -a
+```
 To clean up build artifacts:
 ```bash
 make clean
@@ -42,6 +53,7 @@ make clean
 - `nova_drop.h`: Public interface, constants, and `NovaState` struct.
 - `nova_drop.c`: Implementation of the PRNG logic.
 - `main.c`: Example program demonstrating usage and reproducibility.
+- `nova_raw.c`: Utility for streaming binary data for statistical testing.
 - `Makefile`: Build script for the project and test suite.
 - `README.md`: General overview and usage instructions.
 - `LICENSE`: Open source license terms.
