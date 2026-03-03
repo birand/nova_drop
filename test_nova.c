@@ -16,6 +16,7 @@ void test_nova_init_consistency(void) {
     nova_init(&state1, seed);
     nova_init(&state2, seed);
     
+    TEST_ASSERT_EQUAL_UINT32(state1.index, state2.index);
     for (int i = 0; i < NOVA_DROP_STATE_SIZE; i++) {
         TEST_ASSERT_EQUAL_UINT32(state1.state[i], state2.state[i]);
     }
@@ -99,7 +100,7 @@ void test_nova_auto_seed_uniqueness(void) {
 
 void test_nova_serialization_roundtrip(void) {
     NovaState state1, state2;
-    uint32_t buffer[NOVA_DROP_STATE_SIZE];
+    uint32_t buffer[NOVA_DROP_STATE_SIZE + 1];
     uint32_t seed = 55555;
     
     nova_init(&state1, seed);

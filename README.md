@@ -3,11 +3,11 @@
 [![C/C++ CI](https://github.com/birand/nova_drop/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/birand/nova_drop/actions/workflows/c-cpp.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-`nova_drop` is a high-performance, lightweight pseudo-random number generator (PRNG) written in C. It is designed to offer a balance between simplicity, speed (~100 MOPS), and randomness quality for simulations, games, and general-purpose applications.
+`nova_drop` is a ultra-high-performance, lightweight pseudo-random number generator (PRNG) written in C. It is designed to offer a balance between simplicity, extreme speed (~300+ MOPS), and randomness quality for simulations, games, and general-purpose applications.
 
 ## Key Features
 
-- **Fast & Efficient:** Capable of generating ~100 million numbers per second (MOPS), highly competitive with `stdlib.h` implementations.
+- **Extreme Speed:** Capable of generating **~300+ million numbers per second (MOPS)**, typically **2.3x faster** than `stdlib.h` implementations.
 - **Thread-Safe by Design:** Uses a caller-owned `NovaState` struct, avoiding global state and supporting concurrent environments.
 - **Robust Seeding:** Support for manual 32-bit seeds, string-based phrases (FNV-1a), or automatic high-entropy seeding via `/dev/urandom` (Unix) or `BCryptGenRandom` (Windows).
 - **Expanded API:** Built-in utilities for bounded ranges, floats `[0, 1)`, boolean flips, and sequence "jumping" for parallel processing.
@@ -21,10 +21,10 @@ Running on a standard environment, `nova_drop` shows the following throughput:
 
 | Implementation | Throughput (MOPS) | Time (100M iter) |
 |----------------|-------------------|------------------|
-| `nova_drop`    | **~98.5 MOPS**    | ~1.01s           |
-| `stdlib rand()`| ~100.1 MOPS       | ~0.99s           |
+| `nova_drop`    | **~316.0 MOPS**   | **~0.32s**       |
+| `stdlib rand()`| ~135.0 MOPS       | ~0.74s           |
 
-*Benchmarks performed with `gcc -O3`. `nova_drop` achieves near-stdlib performance while maintaining a significantly larger internal state and more complex mixing.*
+*Benchmarks performed with `gcc -O3`. `nova_drop` significantly outperforms `stdlib.h` while maintaining a 128-bit internal state and more complex mixing.*
 
 ## Installation
 

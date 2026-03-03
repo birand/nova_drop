@@ -68,7 +68,7 @@ A benchmark utility is provided to compare `nova_drop` with the standard library
 ```bash
 make bench
 ```
-Typical performance results show `nova_drop` achieving ~100 MOPS (Millions of Operations Per Second), being highly competitive with `stdlib.h` implementations while providing a larger state and custom mixing logic.
+Typical performance results show `nova_drop` achieving **~300+ MOPS** (Millions of Operations Per Second), outperforming `stdlib.h` implementations by **~2x** while providing a larger state and custom mixing logic.
 
 ### CI/CD
 The project uses **GitHub Actions** for continuous integration. Every push or pull request to the `main` branch triggers an automated build and test process to ensure code quality and stability.

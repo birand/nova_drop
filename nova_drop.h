@@ -16,9 +16,9 @@ extern "C" {
 #endif
 
 /**
- * @brief The internal state size of the nova_drop PRNG.
+ * @brief The internal state size of the nova_drop PRNG (power of 2).
  */
-#define NOVA_DROP_STATE_SIZE 5
+#define NOVA_DROP_STATE_SIZE 4
 
 /**
  * @struct NovaState
@@ -28,7 +28,8 @@ extern "C" {
  * or nova_seed_string before being used with other functions.
  */
 typedef struct {
-    uint32_t state[NOVA_DROP_STATE_SIZE]; /**< The internal 160-bit state array. */
+    uint32_t state[NOVA_DROP_STATE_SIZE]; /**< The internal 128-bit state array. */
+    uint32_t index;                       /**< The current rolling index for updates. */
 } NovaState;
 
 /**
