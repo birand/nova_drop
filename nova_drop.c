@@ -2,6 +2,13 @@
 
 #include <stdio.h>
 #include <time.h>
+
+#ifdef _WIN32
+#include <windows.h>
+#include <bcrypt.h>
+#pragma comment(lib, "bcrypt.lib")
+#endif
+
 #include "nova_drop.h"
 
 void nova_init(NovaState *state, uint32_t seed) {
@@ -14,13 +21,23 @@ void nova_init(NovaState *state, uint32_t seed) {
 
 void nova_auto_seed(NovaState *state) {
     uint32_t seed;
+    int success = 0;
+
+#ifdef _WIN32
+    if (BCryptGenRandom(NULL, (PUCHAR)&seed, sizeof(seed), BCRYPT_USE_SYSTEM_PREFERRED_RNG) == 0) {
+        success = 1;
+    }
+#else
     FILE *urandom = fopen("/dev/urandom", "rb");
     if (urandom) {
-        if (fread(&seed, sizeof(uint32_t), 1, urandom) != 1) {
-            seed = (uint32_t)(time(NULL) ^ clock());
+        if (fread(&seed, sizeof(uint32_t), 1, urandom) == 1) {
+            success = 1;
         }
         fclose(urandom);
-    } else {
+    }
+#endif
+
+    if (!success) {
         seed = (uint32_t)(time(NULL) ^ clock());
     }
     nova_init(state, seed);
