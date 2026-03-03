@@ -144,6 +144,27 @@ void test_nova_seed_string(void) {
     TEST_ASSERT_EQUAL_UINT32(nova_drop(&state4), nova_drop(&state5));
 }
 
+void test_nova_jump(void) {
+    NovaState state1, state2;
+    uint32_t seed = 77777;
+    
+    nova_init(&state1, seed);
+    nova_init(&state2, seed);
+    
+    // Jump state1
+    nova_jump(&state1);
+    
+    // Manually advance state2 by 256 steps
+    for (int i = 0; i < 256; i++) {
+        nova_drop(&state2);
+    }
+    
+    // They should now match
+    for (int i = 0; i < 100; i++) {
+        TEST_ASSERT_EQUAL_UINT32(nova_drop(&state1), nova_drop(&state2));
+    }
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_nova_init_consistency);
@@ -155,5 +176,6 @@ int main(void) {
     RUN_TEST(test_nova_auto_seed_uniqueness);
     RUN_TEST(test_nova_serialization_roundtrip);
     RUN_TEST(test_nova_seed_string);
+    RUN_TEST(test_nova_jump);
     return UNITY_END();
 }

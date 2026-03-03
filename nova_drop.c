@@ -84,6 +84,14 @@ void nova_deserialize(NovaState *state, const uint32_t *buffer) {
     }
 }
 
+void nova_jump(NovaState *state) {
+    // For non-linear generators, a jump is often implemented as a fixed
+    // large number of iterations to statistically separate streams.
+    for (int i = 0; i < 256; i++) {
+        nova_drop(state);
+    }
+}
+
 uint32_t nova_range(NovaState *state, uint32_t min, uint32_t max) {
     if (min >= max) return min;
     return min + (nova_drop(state) % (max - min + 1));

@@ -90,6 +90,16 @@ void nova_serialize(const NovaState *state, uint32_t *buffer);
 void nova_deserialize(NovaState *state, const uint32_t *buffer);
 
 /**
+ * @brief Advances the PRNG state by a massive number of steps (2^64 equivalent).
+ * 
+ * Useful for parallel processing to ensure different threads have non-overlapping
+ * sequences. In this non-linear implementation, it performs a long-step mixing.
+ * 
+ * @param state Pointer to the NovaState struct.
+ */
+void nova_jump(NovaState *state);
+
+/**
  * @brief Generates a random integer within a specified range [min, max].
  * 
  * @param state Pointer to the NovaState struct.
