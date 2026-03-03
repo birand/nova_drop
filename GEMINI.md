@@ -7,6 +7,7 @@
 - **Language:** C (C99/C11 compatible, uses `stdint.h`)
 - **Core Components:** 
     - `nova_init`: Initializes the PRNG state using a 32-bit seed.
+    - `nova_seed_string`: Initializes the state by hashing a string (FNV-1a).
     - `nova_auto_seed`: Automatically initializes the state using system entropy (`/dev/urandom` or system clock).
     - `nova_drop`: Generates a pseudo-random 32-bit integer and updates the state.
 - **State Serialization:**

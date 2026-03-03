@@ -14,6 +14,7 @@ typedef struct {
 } NovaState;
 
 void nova_init(NovaState *state, uint32_t seed);
+void nova_seed_string(NovaState *state, const char *key);
 void nova_auto_seed(NovaState *state);
 uint32_t nova_drop(NovaState *state);
 

@@ -55,6 +55,7 @@ int coin = nova_bool(&state);              // 0 or 1
 ## API Reference
 
 - `void nova_init(NovaState *state, uint32_t seed)`: Initialize with a specific seed.
+- `void nova_seed_string(NovaState *state, const char *key)`: Initialize by hashing a string phrase.
 - `void nova_auto_seed(NovaState *state)`: Initialize using system entropy.
 - `uint32_t nova_drop(NovaState *state)`: Generate a 32-bit random integer.
 - `uint32_t nova_range(NovaState *state, uint32_t min, uint32_t max)`: Generate a number in `[min, max]`.

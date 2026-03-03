@@ -121,6 +121,29 @@ void test_nova_serialization_roundtrip(void) {
     }
 }
 
+void test_nova_seed_string(void) {
+    NovaState state1, state2, state3;
+    const char *phrase = "the quick brown fox jumps over the lazy dog";
+    
+    nova_seed_string(&state1, phrase);
+    nova_seed_string(&state2, phrase);
+    nova_seed_string(&state3, "something else");
+    
+    // Same phrase should produce same first number
+    uint32_t val1 = nova_drop(&state1);
+    uint32_t val2 = nova_drop(&state2);
+    uint32_t val3 = nova_drop(&state3);
+    
+    TEST_ASSERT_EQUAL_UINT32(val1, val2);
+    TEST_ASSERT_NOT_EQUAL(val1, val3);
+    
+    // NULL should behave like an empty string (consistent)
+    NovaState state4, state5;
+    nova_seed_string(&state4, NULL);
+    nova_seed_string(&state5, "");
+    TEST_ASSERT_EQUAL_UINT32(nova_drop(&state4), nova_drop(&state5));
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_nova_init_consistency);
@@ -131,5 +154,6 @@ int main(void) {
     RUN_TEST(test_nova_bool_output);
     RUN_TEST(test_nova_auto_seed_uniqueness);
     RUN_TEST(test_nova_serialization_roundtrip);
+    RUN_TEST(test_nova_seed_string);
     return UNITY_END();
 }

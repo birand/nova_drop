@@ -19,6 +19,17 @@ void nova_init(NovaState *state, uint32_t seed) {
     }
 }
 
+void nova_seed_string(NovaState *state, const char *key) {
+    uint32_t hash = 2166136261u;
+    if (key) {
+        while (*key) {
+            hash ^= (uint32_t)(*key++);
+            hash *= 16777619u;
+        }
+    }
+    nova_init(state, hash);
+}
+
 void nova_auto_seed(NovaState *state) {
     uint32_t seed;
     int success = 0;
