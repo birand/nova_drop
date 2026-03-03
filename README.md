@@ -27,10 +27,16 @@ Running on a standard environment, `nova_drop` shows the following throughput:
 
 ## Installation
 
-Simply add `nova_drop.c` and `nova_drop.h` to your project and include the header:
+The project can be integrated as a standard header/source pair. Alternatively, use the **single-header version** (`nova_drop_single.h`) for zero-configuration integration:
 
 ```c
-#include "nova_drop.h"
+#define NOVA_DROP_IMPLEMENTATION
+#include "nova_drop_single.h"
+```
+
+To include just the declarations:
+```c
+#include "nova_drop_single.h"
 ```
 
 ## Quick Start

@@ -3,3 +3,4 @@ test_nova
 nova_raw
 nova_bench
 unit_test
+test_single

@@ -20,6 +20,13 @@
 
 ## Building and Running
 
+### Installation
+The project can be integrated as a standard header/source pair (`nova_drop.h`/`nova_drop.c`). Alternatively, a **single-header version** is available in `nova_drop_single.h`:
+```c
+#define NOVA_DROP_IMPLEMENTATION
+#include "nova_drop_single.h"
+```
+
 ### Compilation
 The project is a header/source pair designed to be integrated into larger C or C++ projects. To build the provided test program using the `Makefile`:
 ```bash
@@ -84,6 +91,7 @@ make clean
 ## Project Structure
 - `nova_drop.h`: Public interface, constants, and `NovaState` struct.
 - `nova_drop.c`: Implementation of the PRNG logic.
+- `nova_drop_single.h`: Single-header (STB-style) version of the library.
 - `main.c`: Example program demonstrating usage and reproducibility.
 - `test_nova.c`: Comprehensive unit test suite using Unity.
 - `unity.c`, `unity.h`, `unity_internals.h`: Unity C Unit Testing Framework.
