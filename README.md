@@ -9,10 +9,11 @@
 
 - **Fast & Efficient:** Capable of generating ~100 million numbers per second (MOPS), highly competitive with `stdlib.h` implementations.
 - **Thread-Safe by Design:** Uses a caller-owned `NovaState` struct, avoiding global state and supporting concurrent environments.
-- **Robust Seeding:** Support for manual 32-bit seeds or automatic high-entropy seeding via `/dev/urandom`.
-- **Expanded API:** Built-in utilities for bounded ranges, floats `[0, 1)`, and boolean flips.
-- **C++ Compatible:** Includes `extern "C"` guards for seamless integration into C++ projects.
-- **Comprehensive Testing:** Validated with a Unity-based unit test suite and a raw binary streaming utility for statistical analysis.
+- **Robust Seeding:** Support for manual 32-bit seeds, string-based phrases (FNV-1a), or automatic high-entropy seeding via `/dev/urandom` (Unix) or `BCryptGenRandom` (Windows).
+- **Expanded API:** Built-in utilities for bounded ranges, floats `[0, 1)`, boolean flips, and sequence "jumping" for parallel processing.
+- **State Serialization:** Easily save and load the PRNG state for persistence or networking.
+- **Single-Header Option:** Available as an STB-style single-header library (`nova_drop_single.h`) for zero-configuration integration.
+- **Doxygen Documented:** Fully commented header for professional IDE tooltips and automated documentation.
 
 ## Performance Benchmark
 
@@ -34,21 +35,16 @@ The project can be integrated as a standard header/source pair. Alternatively, u
 #include "nova_drop_single.h"
 ```
 
-To include just the declarations:
-```c
-#include "nova_drop_single.h"
-```
-
 ## Quick Start
 
-### Auto-Seeding (Recommended)
+### Auto-Seeding & Strings
 ```c
 NovaState state;
-nova_auto_seed(&state); // Uses /dev/urandom or system clock
-uint32_t val = nova_drop(&state);
+nova_auto_seed(&state);                 // Uses OS entropy (Unix/Windows)
+nova_seed_string(&state, "my_phrase");  // Seed with a string
 ```
 
-### Manual Seeding & Utilities
+### Utilities & Parallelism
 ```c
 NovaState state;
 nova_init(&state, 12345);
@@ -56,26 +52,30 @@ nova_init(&state, 12345);
 uint32_t dice = nova_range(&state, 1, 6);  // [1, 6]
 float chance = nova_float(&state);         // [0.0, 1.0)
 int coin = nova_bool(&state);              // 0 or 1
+
+// Jump the sequence forward for a parallel thread
+nova_jump(&state); 
 ```
 
 ## API Reference
 
 - `void nova_init(NovaState *state, uint32_t seed)`: Initialize with a specific seed.
 - `void nova_seed_string(NovaState *state, const char *key)`: Initialize by hashing a string phrase.
-- `void nova_auto_seed(NovaState *state)`: Initialize using system entropy.
+- `void nova_auto_seed(NovaState *state)`: Initialize using system entropy (Unix/Windows).
 - `uint32_t nova_drop(NovaState *state)`: Generate a 32-bit random integer.
 - `uint32_t nova_range(NovaState *state, uint32_t min, uint32_t max)`: Generate a number in `[min, max]`.
 - `float nova_float(NovaState *state)`: Generate a float in `[0.0, 1.0)`.
 - `int nova_bool(NovaState *state)`: Generate a 0 or 1.
 - `void nova_serialize(const NovaState *state, uint32_t *buffer)`: Export state to a buffer.
 - `void nova_deserialize(NovaState *state, const uint32_t *buffer)`: Import state from a buffer.
+- `void nova_jump(NovaState *state)`: Advance state by $2^{64}$ equivalent steps for parallel streams.
 
 ## Development & Testing
 
 The project includes a multi-target `Makefile`:
 
 - `make test`: Build and run the basic demonstration.
-- `make unit-test`: Run the comprehensive Unity-based test suite.
+- `make unit-test`: Run the comprehensive Unity-based test suite (10+ tests).
 - `make bench`: Run the performance benchmark utility.
 - `make nova_raw`: Build the binary streaming utility (pipe to `dieharder` or `rngtest`).
 
